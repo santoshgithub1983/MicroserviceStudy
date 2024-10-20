@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'jacoco'
 }
 
 group = 'CalenderService'
@@ -33,6 +34,23 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+jacoco {
+	toolVersion = '0.8.8' // Replace with your desired version
+}
+
+test {
+	finalizedBy jacocoTestReport // Ensures the JaCoCo report is generated after tests
+}
+
+jacocoTestReport {
+	reports {
+		xml.required.set(true) // Generate XML report
+		csv.required.set(false) // Do not generate CSV report
+		html.required.set(true) // Generate HTML report
+	}
 }
 
 tasks.named('test') {
